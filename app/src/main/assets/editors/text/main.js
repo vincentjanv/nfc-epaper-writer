@@ -15,18 +15,62 @@ const clearCanvas = commonInstance.clearCanvas.bind(commonInstance);
  * @param {string} text
  * @param {string} fontFace
  */
-function fitAndFillTextCenter(text, fontFace = 'Arial', paddingW = 4) {
+function fitAndFillHuisnummer(text, fontFace = 'Arial', paddingW = 4) {
 	if (!text) {
 		clearCanvas();
 		return;
 	}
 	const { height: canvasH, width: canvasW } = canvas;
-	let fontSize = getFontSizeToFit(text, fontFace, canvasW - (paddingW * 2), canvasH);
+	let fontSize=0;
+
+	if (!textInputline1.value && !textInputline2.value){
+			 fontSize = getFontSizeToFit(text, fontFace, canvasW - (paddingW * 2), canvasH);
+
+		} else{
+				 fontSize = getFontSizeToFit(text, fontFace, canvasW - 20, canvasH);
+
+		if (fontSize>50) { fontSize=45;}
+		}
+
 	ctx.fillStyle = textColor;
 	ctx.font = fontSize + `px ${fontFace}`;
 
-	ctx.textBaseline = 'middle';
+	ctx.textBaseline = 'top';
+	if (!textInputline1.value && !textInputline2.value){
+		ctx.textBaseline = 'middle';
+
 	ctx.textAlign = 'center';
+}else
+{
+	ctx.textAlign = 'left';
+
+}
+
+	const x = 0;
+	const y = 0;
+	const lines = text.match(/[^\r\n]+/g);
+	for (let i = 0; i < lines.length; i++) {
+		let xL = (canvasW - x) / 2;
+		let yL = y + (canvasH / (lines.length + 1)) * (i + 1);
+	if (!textInputline1.value && !textInputline2.value){
+			ctx.fillText(lines[i], xL, yL);
+
+} else {
+		ctx.fillText(lines[i], 10, 10);
+		}
+	}
+}
+function fitAndFillsecond(text, fontFace = 'Arial', paddingW = 4,lijn) {
+if (!text) {
+		return;
+	}
+	const { height: canvasH, width: canvasW } = canvas;
+	let fontSize = getFontSizeToFit(text, fontFace, canvasW - 20, 25);
+
+	ctx.fillStyle = textColor;
+	ctx.font = fontSize + `px ${fontFace}`;
+
+	ctx.textBaseline = 'top';
 
 	const x = 0;
 	const y = 0;
@@ -35,7 +79,7 @@ function fitAndFillTextCenter(text, fontFace = 'Arial', paddingW = 4) {
 		let xL = (canvasW - x) / 2;
 		let yL = y + (canvasH / (lines.length + 1)) * (i + 1);
 
-		ctx.fillText(lines[i], xL, yL);
+		ctx.fillText(lines[i], 10, 35+(lijn*25));
 	}
 }
 
@@ -87,17 +131,52 @@ function drawBg() {
 function renderToCanvas() {
 	clearCanvas();
 	drawBg();
-	fitAndFillTextCenter(textInput.value);
+	fitAndFillHuisnummer(textInput.value);
+	fitAndFillsecond(textInputline1.value,'Arial',4,1);
+	fitAndFillsecond(textInputline2.value,'Arial',4,2);
+
 }
 
 renderToCanvas();
 setTimeout(renderToCanvas, 200);
+	setInverted();
 
 // Attach listeners
 textInput.addEventListener('keyup', renderToCanvas);
-document.querySelector('button#addLineBreak').addEventListener('click', () => {
-	textInput.value += '\n';
+textInputline1.addEventListener('keyup', renderToCanvas);
+textInputline2.addEventListener('keyup', renderToCanvas);
+
+textInputline1.addEventListener("keydown", function(e){
+    /*
+     * keyCode: 8
+     * keyIdentifier: "U+0008"
+    */
+    console.log(e.key);
+    if(e.key == 'Backspace') {
+setTimeout(renderToCanvas, 200);
+    }
 });
+textInputline2.addEventListener("keydown", function(e){
+    /*
+     * keyCode: 8
+     * keyIdentifier: "U+0008"
+    */
+    console.log(e.key);
+    if(e.key == 'Backspace') {
+setTimeout(renderToCanvas, 200);
+    }
+});
+textInput.addEventListener("keydown", function(e){
+    /*
+     * keyCode: 8
+     * keyIdentifier: "U+0008"
+    */
+    console.log(e.key);
+    if(e.key == 'Backspace') {
+setTimeout(renderToCanvas, 200);
+    }
+});
+
 document.querySelector('button#reset').addEventListener('click', () => {
 	textInput.value = defaultText;
 	setInverted(false);

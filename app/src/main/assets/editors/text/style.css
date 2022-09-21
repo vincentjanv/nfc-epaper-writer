@@ -2,10 +2,19 @@
 	justify-content: space-evenly;
 }
 #textInput {
-	min-height: 100px;
+	min-height: 40px;
+	font-size:20px;
+}
+.smallerLines {
+	min-height: 20px;
+	font-size:14px;
 }
 .buttonsWrapper {
 	align-content: center;
+}
+.input {
+margin: 5px;
+font-size: A8a
 }
 .buttonsWrapper button {
 	padding: 4px 8px;

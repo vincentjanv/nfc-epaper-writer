@@ -42,7 +42,7 @@ class Preferences {
             .setItems(ScreenSizes) { _, which ->
                 val selectedSize = ScreenSizes[which]
                 with(this.getPreferences().edit()) {
-                    putString(PreferenceKeys.DisplaySize, selectedSize)
+                    putString(PreferenceKeys.DisplaySize, "2.13\"")
                     apply()
                 }
                 callback(selectedSize)

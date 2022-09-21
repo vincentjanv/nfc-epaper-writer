@@ -56,25 +56,7 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        // Setup image file picker
-        val imageFilePickerCTA: Button = findViewById(R.id.cta_pick_image_file)
-        imageFilePickerCTA.setOnClickListener {
-            val screenSizePixels = this.mPreferencesController?.getScreenSizePixels()!!
 
-            CropImage
-                .activity()
-                .setGuidelines(CropImageView.Guidelines.ON)
-                .setAspectRatio(screenSizePixels.first, screenSizePixels.second)
-                .setRequestedSize(screenSizePixels.first, screenSizePixels.second, CropImageView.RequestSizeOptions.RESIZE_EXACT)
-                .start(this)
-        }
-
-        // Setup WYSIWYG button click
-        val wysiwygEditButtonInvite: Button = findViewById(R.id.cta_new_graphic)
-        wysiwygEditButtonInvite.setOnClickListener {
-            val intent = Intent(this, WysiwygEditor::class.java)
-            startActivity(intent)
-        }
 
         // Setup text button click
         val textEditButtonInvite: Button = findViewById(R.id.cta_new_text)

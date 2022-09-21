@@ -27,6 +27,8 @@ canvas {
 }
 .col {
 	flex-basis: 0;
+	flex: 1;
+	flex-direction: column;
 	flex-grow: 1;
 }
 
